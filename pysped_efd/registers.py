@@ -23,6 +23,7 @@
 
 import collections
 
+
 def register(reg_number, field_names):
     typename = 'r{}'.format(reg_number)
     reg = collections.namedtuple(typename, field_names)
@@ -397,15 +398,183 @@ rD696 = register('D696', (
 rD697 = register('D697', ('UF', 'VL_BC_ICMS', 'VL_ICMS'))
 rD990 = register('D990', ('QTD_LIN_D',))
 
+# Block E
+rE001 = register('E001', ('IND_MOV',))
+rE100 = register('E100', ('DT_INI', 'DT_FIN'))
+rE110 = register('E110', (
+    'VL_TOT_DEBITOS', 'VL_AJ_DEBITOS', 'VL_TOT_AJ_DEBITOS', 'VL_ESTORNOS_CRED',
+    'VL_TOT_CREDITOS', 'VL_AJ_CREDITOS', 'VL_TOT_AJ_CREDITOS',
+    'VL_ESTORNOS_DEB', 'VL_SLD_CREDOR_ANT', 'VL_SLD_APURADO', 'VL_TOT_DED',
+    'VL_ICMS_RECOLHER', 'VL_SLD_CREDOR_TRANSPORTAR', 'DEB_ESP',
+    ))
+rE111 = register('E111', ('COD_AJ_APUR', 'DESCR_COMPL_AJ', 'VL_AJ_APUR'))
+rE112 = register('E112', (
+    'NUM_DA', 'NUM_PROC', 'IND_PROC', 'PROC', 'TXT_COMPL'
+    ))
+rE113 = register('E113', (
+    'COD_PART', 'COD_MOD', 'SER', 'SUB', 'NUM_DOC', 'DT_DOC', 'COD_ITEM',
+    'VL_AJ_ITEM',
+    ))
+rE115 = register('E115', ('COD_INF_ADIC', 'VL_INF_ADIC', 'DESCR_COMPL_AJ'))
+rE116 = register('E116', (
+    'COD_OR', 'VL_OR', 'DT_VCTO', 'COD_REC', 'NUM_PROC', 'IND_PROC', 'PROC',
+    'TXT_COMPL', 'MES_REF',
+    ))
+rE200 = register('E200', ('UF', 'DT_INI', 'DT_FIN'))
+rE210 = register('E210', (
+    'IND_MOV_ST', 'VL_SLD_CRED_ANT_ST', 'VL_DEVOL_ST', 'VL_RESSARC_ST',
+    'VL_OUT_CRED_ST', 'VL_AJ_CREDITOS_ST', 'VL_RETENÇAO_ST', 'VL_OUT_DEB_ST',
+    'VL_AJ_DEBITOS_ST', 'VL_SLD_DEV_ANT_ST', 'VL_DEDUCOES_ST',
+    'VL_ICMS_RECOL_ST', 'VL_SLD_CRED_ST_TRANSPORTAR', 'DEB_ESP_ST',
+    ))
+rE220 = register('E220', ('COD_AJ_APUR', 'DESCR_COMPL_AJ', 'VL_AJ_APUR'))
+rE230 = register('E230', (
+    'NUM_DA', 'NUM_PROC', 'IND_PROC', 'PROC', 'TXT_COMPL'
+    ))
+rE240 = register('E240', (
+    'COD_PART', 'COD_MOD', 'SER', 'SUB', 'NUM_DOC', 'DT_DOC', 'COD_ITEM',
+    'VL_AJ_ITEM',
+    ))
+rE250 = register('E250', (
+    'COD_OR', 'VL_OR', 'DT_VCTO', 'COD_REC', 'NUM_PROC', 'IND_PROC', 'PROC',
+    'TXT_COMPL', 'MES_REF',
+    ))
+rE500 = register('E500', ('IND_APUR', 'DT_INI', 'DT_FIN'))
+rE510 = register('E510', (
+    'CFOP', 'CST_IPI', 'VL_CONT_IPI', 'VL_BC_IPI', 'VL_IPI',
+    ))
+rE520 = register('E520', (
+    'VL_SD_ANT_IPI', 'VL_DEB_IPI', 'VL_CRED_IPI', 'VL_OD_IPI', 'VL_OC_IPI',
+    'VL_SC_IPI', 'VL_SD_IPI',
+    ))
+rE530 = register('E530', (
+    'IND_AJ', 'VL_AJ', 'COD_AJ', 'IND_DOC', 'NUM_DOC', 'DESCR_AJ',
+    ))
+rE990 = register('E990', ('QTD_LIN_E',))
 
+# Block G
+rG001 = register('G001', ('IND_MOV',))
+rG110 = register('G110', (
+    'DT_INI', 'DT_FIN', 'SALDO_IN_ICMS', 'SOM_PARC', 'VL_TRIB_EXP', 'VL_TOTAL',
+    'IND_PER_SAI', 'ICMS_APROP', 'SOM_ICMS_OC',
+    ))
+rG125 = register('G125', (
+    'COD_IND_BEM', 'DT_MOV', 'TIPO_MOV', 'VL_IMOB_ICMS_OP', 'VL_IMOB_ICMS_ST',
+    'VL_IMOB_ICMS_FRT', 'VL_IMOB_ICMS_DIF', 'NUM_PARC', 'VL_PARC_PASS',
+    ))
+rG126 = register('G126', (
+    'DT_INI', 'DT_FIM', 'NUM_PARC', 'VL_PARC_PASS', 'VL_TRIB_OC', 'VL_TOTAL',
+    'IND_PER_SAI', 'VL_PARC_APROP',
+    ))
+rG130 = register('G130', (
+    'IND_EMIT', 'COD_PART', 'COD_MOD', 'SERIE', 'NUM_DOC', 'CHV_NFE_CTE',
+    'DT_DOC',
+    ))
+rG140 = register('G140', ('NUM_ITEM', 'COD_ITEM'))
+rG990 = register('G990', ('QTD_LIN_G',))
 
+# Block H
+rH001 = register('H001', ('IND_MOV',))
+rH005 = register('H005', ('DT_INV', 'VL_INV', 'MOT_INV'))
+rH010 = register('H010', (
+    'COD_ITEM', 'UNID', 'QTD', 'VL_UNIT', 'VL_ITEM', 'IND_PROP', 'COD_PART',
+    'TXT_COMPL', 'COD_CTA',
+    ))
+rH020 = register('H020', ('CST_ICMS', 'BC_ICMS', 'VL_ICMS'))
+rH990 = register('H990', ('QTD_LIN_H',))
 
+# Block 1
+r1001 = register('1001', ('IND_MOV',))
+r1010 = register('1010', (
+    'IND_EXP', 'IND_CCRF', 'IND_COMB', 'IND_USINA', 'IND_VA', 'IND_EE',
+    'IND_CART', 'IND_FORM', 'IND_AER',
+    ))
+r1100 = register('1100', (
+    'IND_DOC', 'NRO_DE', 'DT_DE', 'NAT_EXP', 'NRO_RE', 'DT_RE', 'CHC_EMB',
+    'DT_CHC', 'DT_AVB', 'TP_CHC', 'PAIS',
+    ))
+r1105 = register('1105', (
+    'COD_MOD', 'SERIE', 'NUM_DOC', 'CHV_NFE', 'DT_DOC', 'COD_ITEM',
+    ))
+r1110 = register('1110', (
+    'COD_PART', 'COD_MOD', 'SER', 'NUM_DOC', 'DT_DOC', 'CHV_NFE', 'NR_MEMO',
+    'QTD', 'UNID',
+    ))
+r1200 = register('1200', (
+    'COD_AJ_APUR', 'SLD_CRED', 'CRED_APR', 'CRED_RECEB', 'CRED_UTIL',
+    'SLD_CRED_FIM',
+    ))
+r1210 = register('1210', ('TIPO_UTIL', 'NR_DOC', 'VL_CRED_UTIL'))
+r1300 = register('1300', (
+    'COD_ITEM', 'DT_FECH', 'ESTQ_ABERT', 'VOL_ENTR', 'VOL_DISP', 'VOL_SAIDAS',
+    'ESTQ_ESCR', 'VAL_AJ_PERDA', 'VAL_AJ_GANHO', 'FECH_FISICO',
+    ))
+r1310 = register('1310', (
+    'NUM_TANQUE', 'ESTQ_ABERT', 'VOL_ENTR', 'VOL_DISP', 'VOL_SAIDAS',
+    'ESTQ_ESCR', 'VAL_AJ_PERDA', 'VAL_AJ_GANHO', 'FECH_FISICO',
+    ))
+r1320 = register('1320', (
+    'NUM_BICO', 'NR_INTERV', 'MOT_INTERV', 'NOM_INTERV', 'CNPJ_INTERV',
+    'CPF_INTERV', 'VAL_FECHA', 'VAL_ABERT', 'VOL_AFERI', 'VOL_VENDAS',
+    ))
+r1350 = register('1350', ('SERIE', 'FABRICANTE', 'MODELO', 'TIPO_MEDICAO'))
+r1360 = register('1360', ('NUM_LACRE', 'DT_APLICACAO'))
+r1370 = register('1370', ('NUM_BICO', 'COD_ITEM', 'NUM_TANQUE'))
+r1390 = register('1390', ('COD_PROD',))
+r1391 = register('1391', (
+    'DT_REGISTRO', 'QTD_MOID', 'ESTQ_INI', 'QTD_PRODUZ', 'ENT_ANID_HID',
+    'OUTR_ENTR', 'PERDA', 'CONS', 'SAI_ANI_HID', 'SAIDAS', 'ESTQ_FIN',
+    'ESTQ_INI_MEL', 'PROD_DIA_MEL', 'UTIL_MEL', 'PROD_ALC_MEL', 'OBS',
+    ))
+r1400 = register('1400', ('COD_ITEM', 'MUN', 'VALOR'))
+r1500 = register('1500', (
+    'IND_OPER', 'IND_EMIT', 'COD_PART', 'COD_MOD', 'COD_SIT', 'SER', 'SUB',
+    'COD_CONS', 'NUM_DOC', 'DT_DOC', 'DT_E_S', 'VL_DOC', 'VL_DESC', 'VL_FORN',
+    'VL_SERV_NT', 'VL_TERC', 'VL_DA', 'VL_BC_ICMS', 'VL_ICMS', 'VL_BC_ICMS_ST',
+    'VL_ICMS_ST', 'COD_INF', 'VL_PIS', 'VL_COFINS', 'TP_LIGACAO',
+    'COD_GRUPO_TENSAO',
+    ))
+r1510 = register('1510', (
+    'NUM_ITEM', 'COD_ITEM', 'COD_CLASS', 'QTD', 'UNID', 'VL_ITEM', 'VL_DESC',
+    'CST_ICMS', 'CFOP', 'VL_BC_ICMS', 'ALIQ_ICMS', 'VL_ICMS', 'VL_BC_ICMS_ST',
+    'ALIQ_ST', 'VL_ICMS_ST', 'IND_REC', 'COD_PART', 'VL_PIS', 'VL_COFINS',
+    'COD_CTA',
+    ))
+r1600 = register('1600', ('COD_PART', 'TOT_CREDITO', 'TOT_DEBITO'))
+r1700 = register('1700', (
+    'COD_DISP', 'COD_MOD', 'SER', 'SUB', 'NUM_DOC_INI', 'NUM_DOC_FIN',
+    'NUM_AUT',
+    ))
+r1710 = register('1710', ('NUM_DOC_INI', 'NUM_DOC_FIN'))
+r1800 = register('1800', (
+    'VL_CARGA', 'VL_PASS', 'VL_FAT', 'IND_RAT', 'VL_ICMS_ANT', 'VL_BC_ICMS',
+    'VL_ICMS_APUR', 'VL_BC_ICMS_APUR', 'VL_DIF',
+    ))
+r1900 = register('1900', ('IND_APUR_ICMS', 'DESCR_COMPL_OUT_APUR'))
+r1910 = register('1910', ('DT_INI', 'DT_FIN'))
+r1920 = register('1920', (
+    'VL_TOT_TRANSF_DEBITOS_OA', 'VL_TOT_AJ_DEBITOS_OA', 'VL_ESTORNOS_CRED_OA',
+    'VL_TOT_TRANSF_CREDITOS_OA', 'VL_TOT_AJ_CREDITOS_OA', 'VL_ESTORNOS_DEB_OA',
+    'VL_SLD_CREDOR_ANT_OA', 'VL_SLD_APURADO_OA', 'VL_TOT_DED',
+    'VL_ICMS_RECOLHER_OA', 'VL_SLD_CREDOR_TRANSP_OA', 'DEB_ESP_OA',
+    ))
+r1921 = register('1921', ('COD_AJ_APUR', 'DESCR_COMPL_AJ', 'VL_AJ_APUR'))
+r1922 = register('1922', (
+    'NUM_DA', 'NUM_PROC', 'IND_PROC', 'PROC', 'TXT_COMPL',
+    ))
+r1923 = register('1923', (
+    'COD_PART', 'COD_MOD', 'SER', 'SUB', 'NUM_DOC', 'DT_DOC', 'COD_ITEM',
+    'VL_AJ_ITEM',
+    ))
+r1925 = register('1925', ('COD_INF_ADIC', 'VL_INF_ADIC', 'DESCR_COMPL_AJ'))
+r1926 = register('1926', (
+    'COD_OR', 'VL_OR', 'DT_VCTO', 'COD_REC', 'NUM_PROC', 'IND_PROC', 'PROC',
+    'TXT_COMPL', 'MES_REF',
+    ))
+r1990 = register('1990', ('QTD_LIN_1',))
 
-
-
-
-
-
-
-
-
+# Block 9
+r9001 = register('9001', ('IND_MOV',))
+r9900 = register('9900', ('REG_BLC', 'QTD_REG_BLC'))
+r9990 = register('9990', ('QTD_LIN_9',))
+r9999 = register('9999', ('QTD_LIN',))
