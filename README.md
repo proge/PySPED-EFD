@@ -12,3 +12,4 @@ TODO
 - Verificar campos obrigatórios
 - Validar tamanho e tipo dos registros
 - Validar arquivo no sistema do governo
+- Ordenar linhas de acordo com hierarquia definida pelo manual
