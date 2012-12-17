@@ -24,12 +24,14 @@
 import collections
 
 
-def register(reg_number, field_names):
-    typename = 'r{}'.format(reg_number)
+def register(reg_code, field_names):
+    typename = 'r{}'.format(reg_code)
     reg = collections.namedtuple(typename, field_names)
+    reg_block = typename[1]
 
     class register(reg):
-        REG = reg_number
+        REG = reg_code
+        block = reg_block
 
     return register
 
@@ -125,8 +127,8 @@ rC170 = register('C170', (
     'IND_MOV', 'CST_ICMS', 'CFOP', 'COD_NAT', 'VL_BC_ICMS', 'ALIQ_ICMS',
     'VL_ICMS', 'VL_BC_ICMS_ST', 'ALIQ_ST', 'VL_ICMS_ST', 'IND_APUR', 'CST_IPI',
     'COD_ENQ', 'VL_BC_IPI', 'ALIQ_IPI', 'VL_IPI', 'CST_PIS', 'VL_BC_PIS',
-    'ALIQ_PIS', 'QUANT_BC_PIS', 'ALIQ_PIS', 'VL_PIS', 'CST_COFINS',
-    'VL_BC_COFINS', 'ALIQ_COFINS', 'QUANT_BC_COFINS', 'ALIQ_COFINS',
+    'ALIQ_PIS', 'QUANT_BC_PIS', 'ALIQ_PIS_RS', 'VL_PIS', 'CST_COFINS',
+    'VL_BC_COFINS', 'ALIQ_COFINS', 'QUANT_BC_COFINS', 'ALIQ_COFINS_RS',
     'VL_COFINS', 'COD_CTA',
     ))
 rC171 = register('C171', ('NUM_TANQUE', 'QTDE'))
@@ -269,7 +271,7 @@ rC990 = register('C990', ('QTD_LIN_C',))
 rD001 = register('D001', ('IND_MOV',))
 rD100 = register('D100', (
     'IND_OPER', 'IND_EMIT', 'COD_PART', 'COD_MOD', 'COD_SIT', 'SER', 'SUB',
-    'NUM_DOC', 'CHV_CTE', 'DT_DOC', 'DT_A_P', 'TP_CT-e', 'CHV_CTE_REF',
+    'NUM_DOC', 'CHV_CTE', 'DT_DOC', 'DT_A_P', 'TP_CTE', 'CHV_CTE_REF',
     'VL_DOC', 'VL_DESC', 'IND_FRT', 'VL_SERV', 'VL_BC_ICMS', 'VL_ICMS',
     'VL_NT', 'COD_INF', 'COD_CTA',
     ))
@@ -423,7 +425,7 @@ rE116 = register('E116', (
 rE200 = register('E200', ('UF', 'DT_INI', 'DT_FIN'))
 rE210 = register('E210', (
     'IND_MOV_ST', 'VL_SLD_CRED_ANT_ST', 'VL_DEVOL_ST', 'VL_RESSARC_ST',
-    'VL_OUT_CRED_ST', 'VL_AJ_CREDITOS_ST', 'VL_RETENÇAO_ST', 'VL_OUT_DEB_ST',
+    'VL_OUT_CRED_ST', 'VL_AJ_CREDITOS_ST', 'VL_RETENCAO_ST', 'VL_OUT_DEB_ST',
     'VL_AJ_DEBITOS_ST', 'VL_SLD_DEV_ANT_ST', 'VL_DEDUCOES_ST',
     'VL_ICMS_RECOL_ST', 'VL_SLD_CRED_ST_TRANSPORTAR', 'DEB_ESP_ST',
     ))
