@@ -118,9 +118,9 @@ class efd:
 
         for block in self.registers:
             for reg in self.registers[block]:
-                reg_dict = reg._asdict()
+                reg_dict = reg.attrs
                 line = '|'.join(map(str,
-                    [reg_dict[key] for key in reg_dict]
+                    [reg.__getattribute__(key) for key in reg_dict]
                     ))
                 lines.append('|{}|{}|'.format(reg.REG, line))
 

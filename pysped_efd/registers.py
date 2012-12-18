@@ -21,19 +21,32 @@
 #                                                                            #
 ##############################################################################
 
-import collections
-
-
 def register(reg_code, field_names):
-    typename = 'r{}'.format(reg_code)
-    reg = collections.namedtuple(typename, field_names)
-    reg_block = typename[1]
+    type_name = 'r{}'.format(reg_code)
+    reg_block = type_name[1]
 
-    class register(reg):
-        REG = reg_code
-        block = reg_block
+    template = '''class {type_name}(object):
+    REG = '{reg_code}'
+    block = '{reg_block}'
+    def __init__(self, {params}):
+        self.attrs = ({attrs},)\n'''.format(
+        type_name=type_name,
+        reg_code=reg_code,
+        reg_block=reg_block,
+        params=', '.join(field_names),
+        attrs=', '.join(map(lambda x: "'{}'".format(x), field_names))
+        )
 
-    return register
+    for field in field_names:
+        template += '        self.{field} = {field}\n'.format(field=field)
+        
+    namespace = dict(__name__='efd_register_%s' % type_name)
+    
+    try:
+        exec template in namespace
+    except SyntaxError, e:
+        raise SyntaxError(e.message + ':\n' + template)
+    return namespace[type_name]
 
 
 # Block 0
