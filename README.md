@@ -8,7 +8,7 @@ Versão: [2.0.11 - Setembro 2012 (PDF)](http://www1.receita.fazenda.gov.br/siste
 TODO
 ----
 - Testes
-- Criar automaticamente registros de início e fim de cada bloco
+- <s>Criar automaticamente registros de início e fim de cada bloco</s>
 - Verificar campos obrigatórios
 - Validar tamanho e tipo dos registros
 - Validar arquivo no sistema do governo
