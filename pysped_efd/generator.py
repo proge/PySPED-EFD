@@ -25,6 +25,7 @@ from registers import *
 
 
 class efd:
+    version = '1.05'
     registers = {
         '0': [],
         'C': [],
@@ -35,6 +36,64 @@ class efd:
         '1': [],
         '9': [],
         }
+
+    def __init__(self, COD_FIN, DT_INI, DT_FIN, NOME, CNPJ, CPF, UF, IE,
+                 COD_MUN, IM, SUFRAMA, IND_PERFIL, IND_ATIV):
+        """EFD constructor.
+
+        Parameters
+        ----------
+        COD_FIN : number
+            Código da finalidade do arquivo:
+            0 - Remessa do arquivo original;
+            1 - Remessa do arquivo substituto.
+        DT_INI : number
+            Data inicial das informações contidas no arquivo.
+        DT_FIN : number
+            Data final das informações contidas no arquivo.
+        NOME : string
+            Nome empresarial da entidade.
+        CNPJ : number
+            Número de inscrição da entidade no CNPJ.
+        CPF : number
+            Número de inscrição da entidade no CPF.
+        UF : string
+            Sigla da unidade da federação da entidade.
+        IE : string
+            Inscrição Estadual da entidade.
+        COD_MUN : number
+            Código do município do domicílio fiscal da entidade, conforme a
+            tabela IBGE.
+        IM : string
+            Inscrição Municipal da entidade.
+        SUFRAMA : string
+            Inscrição da entidade na SUFRAMA.
+        IND_PERFIL : string
+            Perfil de apresentação do arquivo fiscal;
+            A - Perfil A;
+            B - Perfil B;
+            C - Perfil C.
+        IND_ATIV : number
+            Indicador de tipo de atividade:
+            0 - Industrial ou equiparado a industrial;
+            1 - Outros.
+        """
+        self.registers['0'].append(r0000(
+            self.version,
+            COD_FIN,
+            DT_INI,
+            DT_FIN,
+            NOME,
+            CNPJ,
+            CPF,
+            UF,
+            IE,
+            COD_MUN,
+            IM,
+            SUFRAMA,
+            IND_PERFIL,
+            IND_ATIV
+            ))
 
     def add(self, reg):
         self.registers[reg.block].append(reg)
@@ -51,37 +110,45 @@ class efd:
         for block in self.registers:
             block_len = len(self.registers[block])
 
-            if block_len > 0:
-                reg = None
+            reg_begin, reg_end = None, None
+            ind_mov = block_len and '0' or '1'
 
-                # Sum the register tha will be added
-                block_len += 1
+            # Sum the registers that will be added
+            block_len += 2
 
-                # Create register for the end of the current block
-                if block == '0':
-                    reg = r0990(QTD_LIN_0=block_len)
-                elif block == 'C':
-                    reg = rC990(QTD_LIN_C=block_len)
-                elif block == 'D':
-                    reg = rD990(QTD_LIN_D=block_len)
-                elif block == 'E':
-                    reg = rE990(QTD_LIN_E=block_len)
-                elif block == 'G':
-                    reg = rG990(QTD_LIN_G=block_len)
-                elif block == 'H':
-                    reg = rH990(QTD_LIN_H=block_len)
-                elif block == '1':
-                    reg = r1990(QTD_LIN_1=block_len)
+            # Create register for beginning and end of the current block
+            if block == '0':
+                reg_begin = r0001(IND_MOV=ind_mov)
+                reg_end = r0990(QTD_LIN_0=block_len)
+            elif block == 'C':
+                reg_begin = rC001(IND_MOV=ind_mov)
+                reg_end = rC990(QTD_LIN_C=block_len)
+            elif block == 'D':
+                reg_begin = rD001(IND_MOV=ind_mov)
+                reg_end = rD990(QTD_LIN_D=block_len)
+            elif block == 'E':
+                reg_begin = rE001(IND_MOV=ind_mov)
+                reg_end = rE990(QTD_LIN_E=block_len)
+            elif block == 'G':
+                reg_begin = rG001(IND_MOV=ind_mov)
+                reg_end = rG990(QTD_LIN_G=block_len)
+            elif block == 'H':
+                reg_begin = rH001(IND_MOV=ind_mov)
+                reg_end = rH990(QTD_LIN_H=block_len)
+            elif block == '1':
+                reg_begin = r1001(IND_MOV=ind_mov)
+                reg_end = r1990(QTD_LIN_1=block_len)
 
-                if reg:
-                    self.registers[block].append(reg)
+            if reg_begin and reg_end:
+                self.registers[block].append(reg_begin)
+                self.registers[block].append(reg_end)
 
-                # Sum one for each register type
-                for register in self.registers[block]:
-                    try:
-                        reg_len[register.REG] += 1
-                    except:
-                        reg_len[register.REG] = 1
+            # Sum one for each register type
+            for register in self.registers[block]:
+                try:
+                    reg_len[register.REG] += 1
+                except:
+                    reg_len[register.REG] = 1
 
         # Sum the count of each block
         for block in self.registers:

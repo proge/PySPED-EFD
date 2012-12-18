@@ -26,7 +26,21 @@ sys.path.append('..')
 
 import pysped_efd
 
-efd = pysped_efd.efd()
+efd = pysped_efd.efd(
+    COD_FIN='',
+    DT_INI='',
+    DT_FIN='',
+    NOME='',
+    CNPJ='',
+    CPF='',
+    UF='',
+    IE='',
+    COD_MUN='',
+    IM='',
+    SUFRAMA='',
+    IND_PERFIL='',
+    IND_ATIV=''
+    )
 reg = pysped_efd.r0005(
     FANTASIA='Empresa Um Ltda',
     CEP='95900-000',
