@@ -11,11 +11,11 @@ TODO
 - Verificar campos obrigatórios
 - Validar tamanho e tipo dos registros
 - Validar arquivo no sistema do governo
-- Ordenar linhas de acordo com hierarquia definida pelo manual
 
 DONE
 ----
 - Criar automaticamente registros de início e fim de cada bloco
+- Ordenar linhas de acordo com hierarquia definida pelo manual
 
 USAGE
 -----

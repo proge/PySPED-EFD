@@ -191,4 +191,26 @@ class efd:
                     ))
                 lines.append('|{}|{}|'.format(reg.REG, line))
 
+        def _get_line_key(line):
+            key = line[1:5]
+            if key.startswith('0'):
+                key = '0' + key
+            elif key.startswith('C'):
+                key = '1' + key
+            elif key.startswith('D'):
+                key = '2' + key
+            elif key.startswith('E'):
+                key = '3' + key
+            elif key.startswith('G'):
+                key = '4' + key
+            elif key.startswith('H'):
+                key = '5' + key
+            elif key.startswith('1'):
+                key = '6' + key
+            elif key.startswith('9'):
+                key = '7' + key
+            return key
+
+        lines = sorted(lines, key=_get_line_key)
+
         return '\r\n'.join(lines)
