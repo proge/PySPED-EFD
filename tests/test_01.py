@@ -27,34 +27,19 @@ sys.path.append('..')
 import pysped_efd
 
 efd = pysped_efd.efd(
-    COD_FIN='',
-    DT_INI='',
-    DT_FIN='',
-    NOME='',
-    CNPJ='',
+    COD_FIN='0',
+    DT_INI='15122012',
+    DT_FIN='19122012',
+    NOME='Empresa Um Ltda',
+    CNPJ='77300486760765',
     CPF='',
-    UF='',
-    IE='',
-    COD_MUN='',
+    UF='RS',
+    IE='2241025806',
+    COD_MUN='4300034',
     IM='',
     SUFRAMA='',
-    IND_PERFIL='',
-    IND_ATIV=''
+    IND_PERFIL='A',
+    IND_ATIV='1'
     )
-reg = pysped_efd.r0005(
-    FANTASIA='Empresa Um Ltda',
-    CEP='95900-000',
-    END='R. Primeira',
-    NUM='1',
-    COMPL='101',
-    BAIRRO='Único',
-    FONE='11 3011 1103',
-    FAX='',
-    EMAIL='responsavel@empresa.com.br',
-    )
-
-reg.FAX = '11 3011 1104'
-
-efd.add(reg)
 
 print efd.generate()
