@@ -25,7 +25,19 @@ from registers import *
 
 
 class efd:
-    version = '1.05'
+
+    '''
+    Default version: 1.05
+    Other possible values:
+    Code   Version Begin date  End date
+    002    1.01    01012009    31122009
+    003    1.02    01012010    31122010
+    004    1.03    01012011    31122011
+    005    1.04    01012012    30062012
+    006    1.05    01072012    
+    '''
+    version = '006'
+
     registers = {
         '0': [],
         'C': [],
@@ -111,7 +123,12 @@ class efd:
             block_len = len(self.registers[block])
 
             reg_begin, reg_end = None, None
-            ind_mov = block_len and '0' or '1'
+
+            # Don't count the register 0000, created by default 
+            if block == '0':
+                ind_mov = block_len > 1 and '0' or '1'
+            else:
+                ind_mov = block_len and '0' or '1'
 
             # Sum the registers that will be added
             block_len += 2
@@ -159,7 +176,16 @@ class efd:
             self.registers['9'].append(r9001(IND_MOV=0))
         else:
             self.registers['9'].append(r9001(IND_MOV=1))
+        reg_len['9001'] = 1
         total_len += 1
+
+        # Starts with 2: 9990 and 9999
+        reg_len['9900'] = 2
+        for reg in reg_len:
+            reg_len['9900'] += 1
+
+        reg_len['9990'] = 1
+        reg_len['9999'] = 1
 
         for reg in reg_len:
             self.registers['9'].append(r9900(
@@ -190,9 +216,8 @@ class efd:
                     [reg.__getattribute__(key) for key in reg_dict]
                     ))
                 lines.append('|{}|{}|'.format(reg.REG, line))
-
-        def _get_line_key(line):
-            key = line[1:5]
+ 
+        def _fix_key(key):
             if key.startswith('0'):
                 key = '0' + key
             elif key.startswith('C'):
@@ -209,6 +234,12 @@ class efd:
                 key = '6' + key
             elif key.startswith('9'):
                 key = '7' + key
+            return key
+ 
+        def _get_line_key(line):
+            key = _fix_key(line[1:5])
+            if line[1:5] == '9900':
+                key = key + _fix_key(line[6:10])
             return key
 
         lines = sorted(lines, key=_get_line_key)
