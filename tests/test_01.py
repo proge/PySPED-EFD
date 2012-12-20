@@ -26,7 +26,7 @@ sys.path.append('..')
 
 import pysped_efd
 
-efd = pysped_efd.efd(
+efd = pysped_efd.EFD(
     COD_FIN='0',
     DT_INI='15122012',
     DT_FIN='19122012',

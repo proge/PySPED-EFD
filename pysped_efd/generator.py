@@ -22,9 +22,9 @@
 ##############################################################################
 
 from registers import *
+import itertools
 
-
-class efd:
+class EFD:
 
     '''
     Default version: 1.05
@@ -48,6 +48,8 @@ class efd:
         '1': [],
         '9': [],
         }
+
+    class RequiredException(Exception): pass
 
     def __init__(self, COD_FIN, DT_INI, DT_FIN, NOME, CNPJ, CPF, UF, IE,
                  COD_MUN, IM, SUFRAMA, IND_PERFIL, IND_ATIV):
@@ -109,6 +111,28 @@ class efd:
 
     def add(self, reg):
         self.registers[reg.block].append(reg)
+    
+    def _validate(self):
+        registers = list(itertools.chain.from_iterable(
+            [self.registers[block] for block in self.registers]
+            ))
+        register_ids = set([r.REG for r in registers])
+
+        required_registers = (
+            '0000', '0001', '0005', '0990',
+            'C001', 'C990',
+            'D001', 'D990',
+            'E001', 'E100', 'E110', 'E990',
+            'G001', 'G990',
+            'H001', 'H990',
+            '1001', '1010', '1990',
+            '9001', '9900', '9990', '9999',
+            )
+        for reg in required_registers:
+            if reg not in register_ids:
+                raise EFD.RequiredException(
+                    u'O registro {} deve ser informado.'.format(reg)
+                    )
 
     def _generate_end_blocks(self):
         '''Generate end blocks' data'''
@@ -206,6 +230,11 @@ class efd:
     def generate(self):
         '''Generate EFD file content'''
         self._generate_end_blocks()
+        try:
+            self._validate()
+        except EFD.RequiredException, e:
+            print(e.message)
+            return
 
         lines = []
 
